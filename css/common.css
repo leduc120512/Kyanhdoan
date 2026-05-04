@@ -1,0 +1,865 @@
+:root {
+  --agoda-blue: #3d7dff;
+  --agoda-blue-dark: #1f56d8;
+  --agoda-blue-deep: #1b3f8a;
+  --agoda-cyan: #4fb4ff;
+  --agoda-accent: #ffb020;
+  --agoda-ink: #1b2a45;
+  --agoda-muted: #5b6b86;
+  --agoda-bg: #f6f8fc;
+  --agoda-card: #ffffff;
+  --agoda-border: #e3e8f3;
+  --agoda-shadow-sm: 0 10px 24px rgba(28, 62, 120, 0.08);
+  --agoda-shadow-md: 0 20px 46px rgba(28, 62, 120, 0.14);
+}
+
+* {
+  font-family: "Sora", sans-serif;
+}
+
+.h-font {
+  font-family: "Space Grotesk", sans-serif;
+  letter-spacing: 0.2px;
+}
+
+body {
+  background: radial-gradient(
+    1100px circle at 10% 0%,
+    #eef4ff 0%,
+    var(--agoda-bg) 45%,
+    #edf2fb 100%
+  );
+  color: var(--agoda-ink);
+}
+
+body.bg-light {
+  background: radial-gradient(
+    1100px circle at 10% 0%,
+    #eef4ff 0%,
+    var(--agoda-bg) 45%,
+    #edf2fb 100%
+  ) !important;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--agoda-blue);
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.custom-bg {
+  background: linear-gradient(135deg, var(--agoda-blue), var(--agoda-cyan));
+  border: none;
+  color: #fff;
+}
+
+.custom-bg:hover {
+  background: linear-gradient(135deg, var(--agoda-blue-dark), #2fa3ff);
+  color: #fff;
+}
+
+.h-line {
+  width: 140px;
+  margin: 0 auto;
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    var(--agoda-accent),
+    rgba(255, 176, 32, 0)
+  );
+  border-radius: 999px;
+}
+
+.h-line.bg-dark {
+  background: linear-gradient(
+    90deg,
+    var(--agoda-accent),
+    rgba(255, 176, 32, 0)
+  ) !important;
+}
+
+.custom-alert {
+  position: fixed;
+  top: 80px;
+  right: 25px;
+  z-index: 1111;
+}
+
+.btn {
+  border-radius: 12px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 20px rgba(28, 62, 120, 0.12);
+}
+
+.btn-dark {
+  background: var(--agoda-blue-deep);
+  border-color: var(--agoda-blue-deep);
+}
+
+.btn-outline-dark {
+  border-color: #b9c6df;
+  color: var(--agoda-ink);
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--agoda-blue), var(--agoda-cyan));
+  border-color: transparent;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, var(--agoda-blue-dark), #2fa3ff);
+  border-color: transparent;
+}
+
+.shadow,
+.shadow-sm {
+  box-shadow: var(--agoda-shadow-sm) !important;
+}
+
+.card,
+.bg-white {
+  border-radius: 16px;
+  border: 1px solid var(--agoda-border);
+  background: #fff;
+}
+
+.badge,
+.badge.rounded-pill {
+  background: #eef3ff !important;
+  border: 1px solid var(--agoda-border);
+  color: var(--agoda-ink) !important;
+  font-weight: 600;
+}
+
+.form-control,
+.form-select {
+  border-radius: 12px;
+  border-color: var(--agoda-border);
+  background-color: #fff;
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: var(--agoda-blue);
+  box-shadow: 0 0 0 0.2rem rgba(61, 125, 255, 0.18);
+}
+
+.form-label {
+  font-weight: 600;
+}
+
+.form-check-input:checked {
+  background-color: var(--agoda-blue);
+  border-color: var(--agoda-blue);
+}
+
+.table {
+  border-color: var(--agoda-border);
+}
+
+.table thead tr,
+.table thead th {
+  background: #1b2a45;
+  color: #f8fafc;
+}
+
+.container-fluid,
+.container {
+  position: relative;
+}
+
+.breadcrumb-mini {
+  font-size: 14px;
+  color: var(--agoda-muted);
+}
+
+.breadcrumb-mini a {
+  color: var(--agoda-muted);
+}
+
+.breadcrumb-mini a:hover {
+  color: var(--agoda-blue);
+}
+
+.custom-navbar {
+  background: linear-gradient(120deg, #1f56d8, #3d7dff 45%, #5aa6ff 100%);
+  color: #f8fafc;
+  transition: all 0.3s ease;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 18px 36px rgba(20, 42, 92, 0.2);
+}
+
+.custom-navbar .container-fluid {
+  max-width: 1240px;
+  margin: auto;
+}
+
+.top-bar {
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+}
+
+.nav-btn,
+.user-btn {
+  background: #fff;
+  color: var(--agoda-blue-deep);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 999px;
+  padding: 7px 16px;
+  font-size: 14px;
+  transition: 0.25s;
+}
+
+.currency-pill {
+  background: rgba(255, 255, 255, 0.2);
+  color: #f8fafc;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+}
+
+.nav-btn:hover,
+.user-btn:hover {
+  background: #f0f6ff;
+  box-shadow: 0 10px 20px rgba(28, 62, 120, 0.2);
+}
+
+.nav-menu {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 8px 10px 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 14px;
+}
+
+.menu-item {
+  color: #e9f1ff;
+  text-decoration: none;
+  padding: 8px 16px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  transition: 0.25s;
+}
+
+.menu-item:hover,
+.menu-item.active {
+  background: #fff;
+  color: var(--agoda-blue-deep);
+}
+
+.menu-item i {
+  font-size: 15px;
+}
+
+.dropdown-menu {
+  border-radius: 14px;
+  border: 1px solid rgba(28, 62, 120, 0.1);
+  box-shadow: 0 12px 30px rgba(28, 62, 120, 0.2);
+}
+
+.custom-navbar.scrolled {
+  padding: 0 !important;
+  background: rgba(20, 42, 92, 0.92);
+  backdrop-filter: blur(12px);
+}
+
+.custom-navbar.scrolled .top-bar {
+  height: 40px;
+}
+
+.custom-navbar.scrolled .logo {
+  font-size: 16px;
+}
+
+.custom-navbar.scrolled .nav-menu {
+  padding: 6px 8px;
+  gap: 8px;
+}
+
+.custom-navbar.scrolled .menu-item {
+  padding: 4px 10px;
+  font-size: 12px;
+  border-radius: 16px;
+}
+
+.custom-navbar.scrolled .menu-item i {
+  font-size: 12px;
+}
+
+.custom-navbar.scrolled .nav-btn,
+.custom-navbar.scrolled .user-btn {
+  padding: 3px 10px;
+  font-size: 12px;
+}
+
+.custom-navbar.scrolled img {
+  width: 22px !important;
+  height: 22px !important;
+}
+
+.hero-carousel {
+  padding: 18px 18px 0;
+}
+
+.hero-carousel .swiper-slide img {
+  border-radius: 24px;
+  box-shadow: var(--agoda-shadow-md);
+}
+
+.availability-form {
+  margin-top: -50px;
+  z-index: 2;
+  position: relative;
+}
+
+.availability-form .form-box {
+  border-radius: 20px;
+  padding: 16px 18px;
+  background: #fff;
+  border: 1px solid var(--agoda-border);
+  box-shadow: var(--agoda-shadow-md);
+}
+
+.availability-form label {
+  font-size: 12px;
+  margin-bottom: 2px;
+  color: var(--agoda-ink);
+  letter-spacing: 0.3px;
+}
+
+.availability-form input,
+.availability-form select {
+  border-radius: 10px !important;
+  padding: 6px 8px;
+  font-size: 13px;
+  border: 1px solid var(--agoda-border);
+  height: 36px;
+  background: #fff;
+}
+
+.availability-form .btn-primary {
+  border-radius: 12px;
+  font-size: 13px;
+  height: 36px;
+}
+
+.room-card {
+  border-radius: 20px;
+  overflow: hidden;
+  background: linear-gradient(180deg, #ffffff, #fbfdff);
+  border: 1px solid var(--agoda-border);
+  box-shadow: var(--agoda-shadow-sm);
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.room-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 36px rgba(28, 62, 120, 0.16);
+}
+
+.room-img {
+  position: relative;
+  height: 220px;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.room-img::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(13, 26, 53, 0) 0%,
+    rgba(13, 26, 53, 0.22) 65%,
+    rgba(13, 26, 53, 0.55) 100%
+  );
+  opacity: 0.9;
+  z-index: 1;
+}
+
+.room-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: 0.4s;
+  position: relative;
+  z-index: 0;
+}
+
+.room-card:hover img {
+  transform: scale(1.08);
+}
+
+.price-tag {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  background: rgba(27, 42, 69, 0.82);
+  color: #f8fafc;
+  padding: 6px 14px;
+  font-size: 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  z-index: 2;
+}
+
+.room-content {
+  padding: 18px;
+}
+
+.room-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.room-guests {
+  font-size: 12px;
+  color: var(--agoda-ink);
+  background: #f1f5ff;
+  border: 1px solid var(--agoda-border);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 999px;
+}
+
+.room-section {
+  margin-top: 10px;
+}
+
+.section-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--agoda-ink);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: block;
+  margin-bottom: 6px;
+}
+
+.tags span,
+.tag-chip {
+  font-size: 11px;
+  background: #eef3ff !important;
+  border-radius: 999px !important;
+  padding: 4px 10px;
+  border: 1px solid var(--agoda-border);
+  color: var(--agoda-ink);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.rating i {
+  font-size: 14px;
+}
+
+.room-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+  gap: 10px;
+}
+
+.room-actions .btn {
+  border-radius: 10px;
+  font-size: 13px;
+  padding: 6px 12px;
+  flex: 1;
+}
+
+.filter-panel {
+  border-radius: 20px;
+  background: #fff;
+  border: 1px solid var(--agoda-border);
+  box-shadow: var(--agoda-shadow-sm);
+}
+
+.filter-card {
+  border: 1px dashed #d9e2f2;
+  background: #f7f9ff;
+  border-radius: 14px;
+}
+
+.room-list-card {
+  border-radius: 20px;
+  border: 1px solid var(--agoda-border);
+  box-shadow: var(--agoda-shadow-sm);
+  background: #fff;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.room-list-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--agoda-shadow-md);
+}
+
+.room-list-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 2fr 0.9fr;
+  gap: 18px;
+  padding: 18px;
+}
+
+.room-list-media img {
+  border-radius: 16px;
+  height: 200px;
+  object-fit: cover;
+  width: 100%;
+}
+
+.room-list-media {
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px;
+}
+
+.room-list-price-tag {
+  position: absolute;
+  left: 12px;
+  bottom: 12px;
+  background: rgba(13, 26, 53, 0.82);
+  color: #f8fafc;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.room-list-body {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.room-list-title {
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.room-list-sub {
+  color: var(--agoda-muted);
+  font-size: 13px;
+}
+
+.room-list-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: stretch;
+  justify-content: center;
+}
+
+.room-list-price {
+  font-weight: 700;
+  color: var(--agoda-blue-deep);
+  font-size: 20px;
+  margin-bottom: 4px;
+}
+
+.room-list-meta {
+  color: var(--agoda-muted);
+  font-size: 13px;
+}
+
+.room-list-actions .btn {
+  width: 100%;
+}
+
+.stat-card {
+  border-top: 4px solid var(--agoda-accent);
+  border-radius: 18px;
+  box-shadow: var(--agoda-shadow-sm);
+}
+
+.facility-card {
+  border-top: 4px solid var(--agoda-blue);
+  border-radius: 18px;
+  box-shadow: var(--agoda-shadow-sm);
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.facility-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--agoda-shadow-md);
+}
+
+.team-card {
+  border-radius: 18px;
+  border: 1px solid var(--agoda-border);
+  box-shadow: var(--agoda-shadow-sm);
+}
+
+.contact-card {
+  border-radius: 18px;
+  border: 1px solid var(--agoda-border);
+  box-shadow: var(--agoda-shadow-sm);
+}
+
+.contact-form textarea {
+  resize: none;
+}
+
+.booking-card {
+  border-radius: 18px;
+  border: 1px solid var(--agoda-border);
+  box-shadow: var(--agoda-shadow-sm);
+}
+
+.profile-card {
+  border-radius: 18px;
+  border: 1px solid var(--agoda-border);
+  box-shadow: var(--agoda-shadow-sm);
+}
+
+.detail-card {
+  border-radius: 18px;
+  border: 1px solid var(--agoda-border);
+  box-shadow: var(--agoda-shadow-sm);
+}
+
+.review-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+}
+
+.review-card {
+  background: #fff;
+  border: 1px solid var(--agoda-border);
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: var(--agoda-shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.review-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.review-user {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.review-avatar {
+  width: 42px;
+  height: 42px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  box-shadow: 0 6px 14px rgba(28, 62, 120, 0.18);
+}
+
+.review-name {
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.review-subtitle {
+  color: var(--agoda-muted);
+  font-size: 12px;
+}
+
+.review-stars i {
+  color: var(--agoda-accent);
+  font-size: 13px;
+}
+
+.review-text {
+  color: var(--agoda-muted);
+  font-size: 14px;
+  margin: 0;
+}
+
+.review-empty {
+  border: 1px dashed var(--agoda-border);
+  background: #f6f9ff;
+  padding: 16px;
+  border-radius: 16px;
+  color: var(--agoda-muted);
+  text-align: center;
+  grid-column: 1 / -1;
+}
+
+.site-footer {
+  background: linear-gradient(120deg, #0f1b33, #14294c 45%, #0f1b33 100%);
+  color: #d8e2f5;
+}
+
+.footer-main {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.footer-text {
+  color: #b7c5dd;
+}
+
+.footer-link {
+  color: #d8e2f5;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.footer-link:hover {
+  color: var(--agoda-accent);
+}
+
+.footer-bottom {
+  background: #0b1324;
+  color: #9fb0cc;
+  padding: 14px 10px;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  font-size: 12px;
+}
+
+.qr-page {
+  margin: 0;
+  padding: 40px 16px;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.qr-card {
+  width: 460px;
+  background: #fff;
+  padding: 28px 32px;
+  border-radius: 20px;
+  border: 1px solid var(--agoda-border);
+  box-shadow: var(--agoda-shadow-md);
+  text-align: center;
+}
+
+.qr-card h2 {
+  margin-bottom: 10px;
+  font-size: 26px;
+}
+
+.qr-box {
+  background: #f3f7ff;
+  padding: 20px;
+  border-radius: 16px;
+  margin: 15px 0;
+  border: 1px solid var(--agoda-border);
+}
+
+.qr-box img {
+  width: 230px;
+}
+
+.qr-info {
+  text-align: left;
+  margin-top: 15px;
+  background: #f8faff;
+  padding: 15px 20px;
+  border-radius: 14px;
+  font-size: 15px;
+  line-height: 26px;
+  border: 1px solid var(--agoda-border);
+}
+
+.qr-note {
+  margin-top: 15px;
+  font-size: 15px;
+  color: var(--agoda-muted);
+}
+
+.qr-card .btn {
+  padding: 10px 24px;
+  border: none;
+}
+
+@media screen and (max-width: 991px) {
+  .nav-menu {
+    border-radius: 12px;
+  }
+
+  .room-list-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .room-list-actions {
+    flex-direction: row;
+  }
+
+  .room-list-actions .btn {
+    flex: 1;
+  }
+}
+
+@media screen and (max-width: 575px) {
+  .availability-form {
+    margin-top: 15px;
+    padding: 0 10px;
+  }
+  .qr-card {
+    width: 100%;
+  }
+
+  .room-list-actions {
+    flex-direction: column;
+  }
+}
+
+/*
+Color palette: Agoda-inspired
+
+Primary: Blue (#3d7dff)
+Accent: Gold (#ffb020)
+Background: Mist (#f6f8fc)
+Ink: Deep navy (#1b2a45)
+*/
