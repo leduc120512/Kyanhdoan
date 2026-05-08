@@ -9,7 +9,6 @@ if (isset($_POST['get_bookings'])) {
           FROM booking_order bo
           JOIN rooms r ON bo.room_id = r.id
           JOIN user_cred u ON bo.user_id = u.id
-          WHERE bo.booking_status != 'cancelled'
           ORDER BY bo.booking_id DESC";
 
     $res = mysqli_query($con, $q);
@@ -61,25 +60,30 @@ if (isset($_POST['get_bookings'])) {
         // Button
         $btn = "";
 
-        // Thanh toán QR (online): cần xác nhận cọc trước
-        if ($row['payment_method'] == "online" && !$deposit_is_confirmed) {
-            $btn .= "<button onclick='confirm_deposit($row[booking_id])' class='btn btn-primary btn-sm shadow-none me-1'>
-                Xác nhận cọc
-                </button>";
-        }
+        // Nếu khách đã hủy — không cho thao tác gì
+        if ($row['booking_status'] == 'cancelled') {
+            $btn = "<span class='badge bg-danger px-3 py-2'>🚫 Khách đã hủy</span>";
+        } else {
+            // Thanh toán QR (online): cần xác nhận cọc trước
+            if ($row['payment_method'] == "online" && !$deposit_is_confirmed) {
+                $btn .= "<button onclick='confirm_deposit($row[booking_id])' class='btn btn-primary btn-sm shadow-none me-1'>
+                    Xác nhận cọc
+                    </button>";
+            }
 
-        // Đã cọc thì cho xác nhận thanh toán hết
-        if ($deposit_is_confirmed && $row['full_payment_confirmed'] == 0) {
-            $btn .= "<button onclick='confirm_full_payment($row[booking_id])' class='btn btn-success btn-sm shadow-none me-1'>
-                Xác nhận thanh toán
-                </button>";
-        }
+            // Đã cọc thì cho xác nhận thanh toán hết
+            if ($deposit_is_confirmed && $row['full_payment_confirmed'] == 0) {
+                $btn .= "<button onclick='confirm_full_payment($row[booking_id])' class='btn btn-success btn-sm shadow-none me-1'>
+                    Xác nhận thanh toán
+                    </button>";
+            }
 
-        // Nếu đã thanh toán hết nhưng chưa xác nhận khách đến
-        if ($row['full_payment_confirmed'] == 1 && $row['guest_arrival_confirmed'] == 0) {
-            $btn .= "<button onclick='confirm_guest_arrival($row[booking_id])' class='btn btn-info btn-sm shadow-none me-1'>
-                Xác nhận khách đến
-                </button>";
+            // Nếu đã thanh toán hết nhưng chưa xác nhận khách đến
+            if ($row['full_payment_confirmed'] == 1 && $row['guest_arrival_confirmed'] == 0) {
+                $btn .= "<button onclick='confirm_guest_arrival($row[booking_id])' class='btn btn-info btn-sm shadow-none me-1'>
+                    Xác nhận khách đến
+                    </button>";
+            }
         }
 
         $deposit_amt = (int)$row['deposit_amt'];
