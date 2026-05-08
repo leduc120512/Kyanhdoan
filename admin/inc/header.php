@@ -129,6 +129,13 @@
               <span>Người giới thiệu</span>
             </a>
           </li>
+          <!-- Yêu cầu rút tiền -->
+          <li class="nav-item">
+            <a class="nav-link text-white d-flex align-items-center gap-2" href="withdrawals.php">
+              <i class="bi bi-cash-stack"></i>
+              <span>Yêu cầu rút tiền</span>
+            </a>
+          </li>
           <!-- Settings -->
 
 

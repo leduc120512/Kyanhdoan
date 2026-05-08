@@ -78,10 +78,13 @@ ORDER BY bo.booking_id DESC";
         $note = "";
         $refund_badge = "";
 
-        if ($data['booking_status'] == 'booked') {
-          $status_bg = "bg-success";
+        // Cho phép đánh giá khi admin đã xác nhận thanh toán hoặc khách đã đến
+        $can_review = ($data['full_payment_confirmed'] == 1 || $data['arrival'] == 1);
 
-          if ($data['arrival'] == 1) {
+        if ($data['booking_status'] == 'booked' || ($data['booking_status'] == 'pending' && $can_review)) {
+          $status_bg = ($data['booking_status'] == 'booked') ? "bg-success" : "bg-warning";
+
+          if ($can_review) {
             if ($data['rate_review'] == 0) {
               $btn .= "<button type='button' onclick='review_room({$data['booking_id']},{$data['room_id']})' data-bs-toggle='modal' data-bs-target='#reviewModal' class='btn btn-dark btn-sm shadow-none ms-2'>Rate & Review</button>";
             }
@@ -180,6 +183,7 @@ HTML;
 
             <input type="hidden" name="booking_id">
             <input type="hidden" name="room_id">
+            <input type="hidden" name="review_form" value="1">
 
             <div class="text-end">
               <button type="submit" class="btn btn-primary">Submit</button>

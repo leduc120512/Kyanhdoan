@@ -142,6 +142,11 @@ if (isset($_POST['apply_referral'])) {
                 FROM booking_order WHERE referral_id=?", [$ref_id], 'i'));
 
                         $pending_commission = $stats['total_commission'] - $stats['paid_commission'];
+
+                        // Kiểm tra đã có yêu cầu rút đang pending chưa
+                        $has_pending_withdrawal = false;
+                        $pw_res = select("SELECT id FROM withdrawal_requests WHERE user_id=? AND type='commission' AND status='pending' LIMIT 1", [$user_id], 'i');
+                        if (mysqli_num_rows($pw_res) > 0) $has_pending_withdrawal = true;
                     ?>
                         <div class="row">
                             <div class="col-md-4 mb-3">
@@ -163,6 +168,18 @@ if (isset($_POST['apply_referral'])) {
                                 </div>
                             </div>
                         </div>
+
+                        <?php if ($pending_commission > 0) { ?>
+                        <div class="mb-3">
+                            <button class="btn btn-success" onclick="open_withdraw_modal(<?php echo $ref_id ?>, <?php echo $pending_commission ?>, 'commission')">
+                                <i class="bi bi-cash-coin me-1"></i> Rút hoa hồng (<?php echo number_format($pending_commission) ?> VND)
+                            </button>
+                        </div>
+                        <?php } elseif ($has_pending_withdrawal) { ?>
+                        <div class="alert alert-warning small mb-3">
+                            Yêu cầu rút hoa hồng đang chờ admin xử lý.
+                        </div>
+                        <?php } ?>
 
                         <?php
                         $list_res = select("SELECT order_id, total_amt, commission_amt, commission_status, datentime
@@ -193,6 +210,48 @@ if (isset($_POST['apply_referral'])) {
                                 </tbody>
                             </table>
                         </div>
+
+                        <?php
+                        // Lịch sử yêu cầu rút hoa hồng
+                        $wr_res = select("SELECT * FROM withdrawal_requests WHERE user_id=? AND type='commission' ORDER BY created_at DESC LIMIT 10", [$user_id], 'i');
+                        if (mysqli_num_rows($wr_res) > 0) {
+                        ?>
+                        <h6 class="fw-bold mt-4 mb-2">Lịch sử yêu cầu rút</h6>
+                        <div class="table-responsive">
+                            <table class="table table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>Số tiền</th>
+                                        <th>Ngân hàng</th>
+                                        <th>Số TK</th>
+                                        <th>Trạng thái</th>
+                                        <th>Ngày gửi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php while ($wr = mysqli_fetch_assoc($wr_res)) {
+                                        $wr_amount = number_format($wr['amount']);
+                                        $wr_date   = date('d-m-Y H:i', strtotime($wr['created_at']));
+                                        if ($wr['status'] == 'approved') {
+                                            $wr_badge = "<span class='badge bg-success'>Đã duyệt</span>";
+                                        } else if ($wr['status'] == 'rejected') {
+                                            $wr_badge = "<span class='badge bg-danger'>Từ chối</span>";
+                                            if ($wr['admin_note']) $wr_badge .= "<div class='small text-muted'>{$wr['admin_note']}</div>";
+                                        } else {
+                                            $wr_badge = "<span class='badge bg-warning text-dark'>Chờ duyệt</span>";
+                                        }
+                                        echo "<tr>
+                                            <td><b>{$wr_amount} VND</b></td>
+                                            <td>{$wr['bank_name']}</td>
+                                            <td>{$wr['bank_account']}<br><small class='text-muted'>{$wr['account_name']}</small></td>
+                                            <td>{$wr_badge}</td>
+                                            <td>{$wr_date}</td>
+                                        </tr>";
+                                    } ?>
+                                </tbody>
+                            </table>
+                        </div>
+                        <?php } ?>
                     <?php } else { ?>
                         <p class="text-muted mb-0">Bạn chưa có dữ liệu hoa hồng.</p>
                     <?php } ?>
@@ -203,15 +262,83 @@ if (isset($_POST['apply_referral'])) {
 
     <?php require('inc/footer.php'); ?>
 
+    <!-- MODAL nhập thông tin ngân hàng -->
+    <div class="modal fade" id="withdrawModal" data-bs-backdrop="static" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form id="withdraw-form">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Thông tin rút hoa hồng</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="alert alert-info small mb-3">
+                            Số tiền: <b id="withdraw-amount-display"></b> VND
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Tên ngân hàng <span class="text-danger">*</span></label>
+                            <input type="text" name="bank_name" class="form-control shadow-none" placeholder="VD: Vietcombank, MB Bank..." required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Số tài khoản <span class="text-danger">*</span></label>
+                            <input type="text" name="bank_account" class="form-control shadow-none" placeholder="Nhập số tài khoản" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Tên chủ tài khoản <span class="text-danger">*</span></label>
+                            <input type="text" name="account_name" class="form-control shadow-none" placeholder="Nhập tên chủ tài khoản" required>
+                        </div>
+                        <input type="hidden" name="ref_id">
+                        <input type="hidden" name="amount">
+                        <input type="hidden" name="type">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                        <button type="submit" class="btn btn-primary">Gửi yêu cầu</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <script>
         window.addEventListener("scroll", function() {
             let navbar = document.querySelector(".custom-navbar");
+            if (window.scrollY > 80) navbar.classList.add("scrolled");
+            else navbar.classList.remove("scrolled");
+        });
 
-            if (window.scrollY > 80) {
-                navbar.classList.add("scrolled");
-            } else {
-                navbar.classList.remove("scrolled");
-            }
+        let withdrawModal = new bootstrap.Modal(document.getElementById('withdrawModal'));
+        let withdrawForm  = document.getElementById('withdraw-form');
+
+        function open_withdraw_modal(ref_id, amount, type) {
+            withdrawForm.reset();
+            withdrawForm.elements['ref_id'].value  = ref_id;
+            withdrawForm.elements['amount'].value  = amount;
+            withdrawForm.elements['type'].value    = type;
+            document.getElementById('withdraw-amount-display').textContent =
+                new Intl.NumberFormat('vi-VN').format(amount);
+            withdrawModal.show();
+        }
+
+        withdrawForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            let data = new FormData(this);
+            data.append('submit_withdrawal', '1');
+
+            let xhr = new XMLHttpRequest();
+            xhr.open('POST', 'ajax/withdrawal.php', true);
+            xhr.onload = function() {
+                if (this.responseText == 1) {
+                    withdrawModal.hide();
+                    alert('success', 'Yêu cầu đã được gửi! Admin sẽ xử lý sớm.');
+                    setTimeout(() => location.reload(), 800);
+                } else if (this.responseText == 2) {
+                    alert('error', 'Đã có yêu cầu rút đang xử lý.');
+                } else {
+                    alert('error', 'Không thể gửi yêu cầu, thử lại sau.');
+                }
+            };
+            xhr.send(data);
         });
     </script>
 </body>
