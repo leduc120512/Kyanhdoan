@@ -9,6 +9,7 @@ if (isset($_POST['get_bookings'])) {
           FROM booking_order bo
           JOIN rooms r ON bo.room_id = r.id
           JOIN user_cred u ON bo.user_id = u.id
+          WHERE bo.booking_status != 'cancelled'
           ORDER BY bo.booking_id DESC";
 
     $res = mysqli_query($con, $q);
