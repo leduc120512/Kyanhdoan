@@ -11,6 +11,7 @@
   --app-dark-2: #111827;
   --shadow-sm: 0 10px 24px rgba(15, 23, 42, 0.08);
   --shadow-md: 0 18px 40px rgba(15, 23, 42, 0.14);
+  --topbar-h: 62px;
 }
 
 *{
@@ -96,10 +97,10 @@ input[type=number] {
 
 #dashboard-menu{
   position: fixed;
-  top: 56px;
+  top: var(--topbar-h);
   left: 0;
-  height: calc(100vh - 56px);
-  z-index: 11;
+  height: calc(100vh - var(--topbar-h));
+  z-index: 10;
   background: linear-gradient(180deg, var(--app-dark), var(--app-dark-2));
   box-shadow: var(--shadow-md);
   border-right: 1px solid rgba(148, 163, 184, 0.18);
@@ -243,7 +244,6 @@ input[type=number] {
     padding: 18px;
   }
 }
-
 #dashboard-menu::-webkit-scrollbar {
   width: 4px;
 }

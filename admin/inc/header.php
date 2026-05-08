@@ -48,7 +48,7 @@
               <span><i class="bi bi-caret-down-fill"></i></span>
             </button>
 
-            <div class="collapse show px-3 small mb-1 admin-subnav" id="bookingLinks">
+            <div class="collapse px-3 small mb-1 admin-subnav" id="bookingLinks">
               <ul class="nav nav-pills flex-column rounded border border-secondary admin-subnav__list">
 
                 <!-- Rooms -->

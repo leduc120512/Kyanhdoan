@@ -11,7 +11,7 @@
 
   //backend upload process needs this data
 
-  define('UPLOAD_IMAGE_PATH',$_SERVER['DOCUMENT_ROOT'].'/booking.com/images/');
+  define('UPLOAD_IMAGE_PATH',$_SERVER['DOCUMENT_ROOT'].'/Booking.com/images/');
   define('ABOUT_FOLDER','about/');
   define('CAROUSEL_FOLDER','carousel/');
   define('FACILITIES_FOLDER','facilities/');
@@ -64,7 +64,8 @@
 
   function deleteImage($image, $folder)
   {
-    if(unlink(UPLOAD_IMAGE_PATH.$folder.$image)){
+    $path = UPLOAD_IMAGE_PATH.$folder.$image;
+    if(file_exists($path) && unlink($path)){
       return true;
     }
     else{
